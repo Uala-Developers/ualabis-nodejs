@@ -16,7 +16,7 @@ SDK Javascript oficial de Ualá Bis API Checkout
 ## Installation
 Install the package with:
 ```sh
-npm install PENDING_TO_DEFINITION
+npm i ualabis-nodejs
 ```
 
 ## Functions
@@ -32,10 +32,10 @@ The package needs to be configured with your account's secret key
 ```js
 /**
  * if you use ES Modules instead of CommonJS use import statement
- * import UalaApiCheckout from 'PENDING_TO_DEFINITION';
+ * import UalaApiCheckout from 'ualabis-nodejs';
 */
 
-const UalaApiCheckout = require('PENDING_TO_DEFINITION');
+const UalaApiCheckout = require('ualabis-nodejs');
 
 await UalaApiCheckout.setUp({
   userName: 'example_user',
@@ -60,7 +60,7 @@ const generatedOrder = await UalaApiCheckout.getOrder(order.uuid);
 ## Instalación
 Instale el paquete con el siguiente comando:
 ```sh
-npm install PENDING_TO_DEFINITION
+npm i ualabis-nodejs
 ```
 
 ## Funciones
@@ -77,10 +77,10 @@ Para hacer uso del SDK es necesario que configure sus credenciales como se muest
 /**
  * Si su código usa ES Modules y no CommonJS, importa el
  * paquete de la siguiente manera:
- * import UalaApiCheckout from 'PENDING_TO_DEFINITION';
+ * import UalaApiCheckout from 'ualabis-nodejs';
 */
 
-const UalaApiCheckout = require('PENDING_TO_DEFINITION');
+const UalaApiCheckout = require('ualabis-nodejs');
 
 await UalaApiCheckout.setUp({
   userName: 'example_user',
