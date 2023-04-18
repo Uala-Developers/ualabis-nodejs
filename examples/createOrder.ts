@@ -5,7 +5,7 @@ const run = async () => {
     userName: 'example_user',
     clientId: 'example_client_id',
     clientSecret: 'example_client_secret',
-    isDev: true
+    isDev: true,
   });
 
   const order = await UalaApiCheckout.createOrder({
@@ -16,7 +16,6 @@ const run = async () => {
   });
 
   const generatedOrder = await UalaApiCheckout.getOrder(order.uuid);
-
 
   return [order, generatedOrder];
 };

@@ -3,15 +3,15 @@
  */
 type NewOrderParams = {
   /** amount to collect */
-  amount: number,
+  amount: number;
   /** order desciption */
-  description: string,
+  description: string;
   /** redirect link on fail */
-  callbackFail: string,
+  callbackFail: string;
   /** redirect link on success */
-  callbackSuccess: string,
+  callbackSuccess: string;
   /** webhook link to notificate order change */
-  notificationUrl?: string
+  notificationUrl?: string;
 }
 
 /**
@@ -58,4 +58,18 @@ type NewOrder = {
   };
 }
 
-export { OrderData, NewOrder, NewOrderParams };
+/**
+ * The order search params to filter orders on get orders
+ */
+type OrderSearchParams = {
+  /** max number of orders to return */
+  limit?: string;
+  /** date of creation of the orders from which the search will begin  */
+  fromDate?: string;
+  /** date of creation of the orders until where it will be searched */
+  toDate?: string;
+}
+
+export {
+  OrderData, NewOrder, NewOrderParams, OrderSearchParams,
+};

@@ -1,6 +1,6 @@
 {
   "name": "ualabis-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ualá Bis SDK Node.js",
   "keywords": [
     "uala",
@@ -24,7 +24,8 @@
   "bugs": "https://github.com/Uala-Developers/ualabis-nodejs/issues",
   "scripts": {
     "test": "jest tests/**",
-    "lint": "eslint .",
+    "lint": "eslint src/* types/* examples/*",
+    "lint-fix": "eslint src/* types/* examples/* --fix",
     "cov": "npm test -- --coverage",
     "doc": "npx typedoc src/* types/*",
     "clean": "rm -frv dist/",

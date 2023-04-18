@@ -84,6 +84,23 @@ const getOrderMock = (statusCode = 200, response: any = fakeGetOrderResponse) =>
   return response;
 };
 
+const fakeGetOrdersResponse = [{
+  order_id: '6447fc99-d2da-44b8-b041-4178ebb2898a',
+  status: 'PENDING',
+  ref_number: '7c8cf59e-6fdb-4e65-94ce-e56cc023e05f',
+  amount: 10.2,
+}];
+const getOrdersMock = (statusCode = 200, response: any = fakeGetOrdersResponse) => {
+  nock('https://checkout.stage.ua.la/1', {
+    reqheaders: {
+      authorization: 'Bearer fake_access_token',
+    },
+  })
+    .get('/order?limit=1')
+    .reply(statusCode, response);
+  return response;
+};
+
 export {
-  createTokenMock, createTokenProdMock, createOrderMock, getFailedNotificationsMock, getOrderMock,
+  createTokenMock, createTokenProdMock, createOrderMock, getFailedNotificationsMock, getOrderMock, getOrdersMock
 };
