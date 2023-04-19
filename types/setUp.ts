@@ -6,5 +6,5 @@ export type SetUpTypes = {
   /** Ualá client secret */
   clientSecret: string,
   /** Determines if the sandbox environment will be used @default false */
-  isDev?: boolean
+  isDev?: boolean,
 }

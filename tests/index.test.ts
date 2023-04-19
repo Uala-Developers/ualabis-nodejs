@@ -2,7 +2,7 @@ import { expect, test } from '@jest/globals';
 import { advanceTo, clear } from 'jest-date-mock';
 import UalaApiCheckout from '../index';
 import {
-  createTokenMock, createTokenProdMock, createOrderMock, getOrderMock, getFailedNotificationsMock,
+  createTokenMock, createTokenProdMock, createOrderMock, getOrderMock, getFailedNotificationsMock, getOrdersMock,
 } from './mocks/apiCheckoutRequest';
 
 test('setUp success', async () => {
@@ -97,6 +97,20 @@ test('get failed notifications', async () => {
   expect(failedNotifications.notifications[0].uuid).toBe(fakeFailedNotifications.notifications[0].uuid);
 });
 
+test('get orders', async () => {
+  createTokenMock();
+  const fakeOrders = getOrdersMock();
+  await UalaApiCheckout.setUp({
+    userName: 'user-test',
+    clientId: 'client-test',
+    clientSecret: 'client-secret-test',
+    isDev: true,
+  });
+  const orders = await UalaApiCheckout.getOrders({limit: '1'});
+  expect(JSON.stringify(orders)).toBe(JSON.stringify(fakeOrders));
+
+});
+
 test('ERROR on create access token - User account not found', async () => {
   createTokenMock(401, {
     code: '3003',
@@ -132,7 +146,7 @@ test('ERROR on create access token - Internal api error', async () => {
   }
 });
 
-test('ERROR create order', async () => {
+test('ERROR on create order', async () => {
   createTokenMock();
   createOrderMock(500, {
     message: 'Something bad happened. Please try again.',
@@ -157,7 +171,7 @@ test('ERROR create order', async () => {
   }
 });
 
-test('ERROR create order - Expired Token', async () => {
+test('ERROR on create order - Expired Token', async () => {
   createTokenMock();
   createOrderMock(403, {
     Message: 'User is not authorized to access this resource with an explicit deny',
@@ -182,7 +196,7 @@ test('ERROR create order - Expired Token', async () => {
   }
 });
 
-test('ERROR get order', async () => {
+test('ERROR on get order', async () => {
   createTokenMock();
   getOrderMock(500, {
     code: '2004',
@@ -202,7 +216,7 @@ test('ERROR get order', async () => {
   }
 });
 
-test('ERROR get order - Expired Token', async () => {
+test('ERROR on get order - Expired Token', async () => {
   createTokenMock();
   getOrderMock(403, {
     Message: 'User is not authorized to access this resource with an explicit deny',
@@ -221,7 +235,7 @@ test('ERROR get order - Expired Token', async () => {
   }
 });
 
-test('ERROR get failed notifications', async () => {
+test('ERROR on get failed notifications', async () => {
   createTokenMock();
   getFailedNotificationsMock(500, {
     message: 'Something bad happened. Please try again.',
@@ -240,7 +254,7 @@ test('ERROR get failed notifications', async () => {
   }
 });
 
-test('ERROR get failed notifications - Expired Token', async () => {
+test('ERROR on get failed notifications - Expired Token', async () => {
   createTokenMock();
   getFailedNotificationsMock(403, {
     Message: 'User is not authorized to access this resource with an explicit deny',
@@ -253,6 +267,45 @@ test('ERROR get failed notifications - Expired Token', async () => {
   });
   try {
     await UalaApiCheckout.getFailedNotifications();
+  } catch (error: any) {
+    expect(error.message).toBe('User is not authorized to access this resource with an explicit deny');
+    expect(error.type).toBe('api_error');
+  }
+});
+
+test('ERROR on get orders', async () => {
+  createTokenMock();
+  getOrdersMock(500, {
+    code: '999',
+    message: 'unexpected error occurred. Please try again',
+  });
+  await UalaApiCheckout.setUp({
+    userName: 'user-test',
+    clientId: 'client-test',
+    clientSecret: 'client-secret-test',
+    isDev: true,
+  });
+  try {
+    await UalaApiCheckout.getOrders({limit: '1'});
+  } catch (error: any) {
+    expect(error.message).toBe('unexpected error occurred. Please try again');
+    expect(error.type).toBe('api_error');
+  }
+});
+
+test('ERROR on get orders - Expired Token', async () => {
+  createTokenMock();
+  getOrdersMock(403, {
+    Message: 'User is not authorized to access this resource with an explicit deny',
+  });
+  await UalaApiCheckout.setUp({
+    userName: 'user-test',
+    clientId: 'client-test',
+    clientSecret: 'client-secret-test',
+    isDev: true,
+  });
+  try {
+    await UalaApiCheckout.getOrders({limit: '1'});
   } catch (error: any) {
     expect(error.message).toBe('User is not authorized to access this resource with an explicit deny');
     expect(error.type).toBe('api_error');

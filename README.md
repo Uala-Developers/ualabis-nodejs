@@ -25,6 +25,7 @@ List of all functions:
   - createOrder
   - getOrder
   - getFailedNotifications
+  - getOrders
 
 ## Usage
 The package needs to be configured with your account's secret key
@@ -52,6 +53,9 @@ const order = await UalaApiCheckout.createOrder({
 });
 
 const generatedOrder = await UalaApiCheckout.getOrder(order.uuid);
+
+const orders = await UalaApiCheckout.getOrders({limit:'2', fromDate:'2022-08-04', toDate:'2022-08-09'});
+
 ```
 
 
@@ -69,6 +73,7 @@ Listado de todas las funciones:
   - createOrder
   - getOrder
   - getFailedNotifications
+  - getOrders
 
 ## Uso
 Para hacer uso del SDK es necesario que configure sus credenciales como se muestra a continuación:
@@ -97,6 +102,9 @@ const order = await UalaApiCheckout.createOrder({
 });
 
 const generatedOrder = await UalaApiCheckout.getOrder(order.uuid);
+
+const orders = await UalaApiCheckout.getOrders({limit:'2', fromDate:'2022-08-04', toDate:'2022-08-09'});
+
 ```
 
 ## API Checkout Docs
